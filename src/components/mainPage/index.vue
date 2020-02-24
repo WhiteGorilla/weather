@@ -1,18 +1,17 @@
 <template>
-  <main>
-    <section>
+  <div class="main-page">
+    <header>
       <div class="container">
-        <form @submit.prevent="getSearchData">
+        <form @submit.prevent="getData">
           <label for="city">Enter city name</label>
-          <input type="text" id="city" v-model="searchRequest" />
-          <button type="submit">Show</button>
-          <small v-if="showErrMessage">No such city name!</small>
+          <input type="text" id="city" v-model="searchRequest" maxlength="64" />
+          <button type="submit" :class="{ disabled: searchRequest.length < 2 }">Show</button>
+          <small v-if="searchStatus">No such city name!</small>
         </form>
       </div>
-    </section>
-
-    <cityInfo :searchData="searchData" />
-  </main>
+    </header>
+    <cityInfo :searchData="allWeatherMap" :currentMap="currentWeatherMap" />
+  </div>
 </template>
 
 <script src="./script.js"></script>

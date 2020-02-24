@@ -4,33 +4,27 @@ export default {
       filters: {
         temperature: {
           type: "temperature",
-          visibility: true,
-          value: ""
+          visibility: true
         },
         maxTemp: {
           type: "maxTemp",
-          visibility: true,
-          value: ""
+          visibility: true
         },
         minTemp: {
           type: "minTemp",
-          visibility: true,
-          value: ""
+          visibility: true
         },
         pressure: {
           type: "pressure",
-          visibility: true,
-          value: ""
+          visibility: true
         },
         humidity: {
           type: "humidity",
-          visibility: true,
-          value: ""
+          visibility: true
         },
         visibility: {
           type: "visibility",
-          visibility: true,
-          value: ""
+          visibility: true
         }
       }
     };
@@ -38,7 +32,7 @@ export default {
 
   name: "city-info",
 
-  props: ["searchData"],
+  props: ["searchData", "currentMap"],
 
   mounted() {},
 
@@ -47,13 +41,6 @@ export default {
   methods: {},
 
   watch: {
-    searchData() {
-      this.filters.temperature.value = this.searchData.main.temp;
-      this.filters.maxTemp.value = this.searchData.main.temp_max;
-      this.filters.minTemp.value = this.searchData.main.temp_min;
-      this.filters.pressure.value = this.searchData.main.pressure;
-      this.filters.humidity.value = this.searchData.main.humidity;
-      this.filters.visibility.value = this.searchData.visibility;
-    }
+    searchData() {}
   }
 };

@@ -2,11 +2,11 @@
   <section>
     <div class="container">
       <div class="wrap">
-        <div v-if="searchData && searchData.coord">
-          <h2>{{ searchData.name }}</h2>
+        <div v-if="currentMap && currentMap.coord">
+          <h2>{{ currentMap.name }}</h2>
           <h4>
-            latitude: {{ searchData.coord.lat }} , longitude:
-            {{ searchData.coord.lon }}
+            latitude: {{ currentMap.coord.lat }} , longitude:
+            {{ currentMap.coord.lon }}
           </h4>
         </div>
 
@@ -32,19 +32,23 @@
           </template>
         </tr>
 
-        <template v-if="searchData && searchData.main">
-          <tr>
-            <td>
-              <template v-for="weather in searchData.weather">
-                {{ searchData.dt | moment("DD/MM/YYYY H:MM") }}
-                ({{ weather.description }})
-              </template>
-            </td>
-
-            <template v-for="(filter, index) in filters">
-              <td :key="index" v-if="filter.visibility">{{ filter.value }}</td>
-            </template>
-          </tr>
+        <template v-if="searchData">
+          <template v-for="(locationData, index) in searchData">
+            <tr :key="index" v-if="locationData.name == currentMap.name">
+              <td>
+                <template v-for="weather in locationData.weather">
+                  {{ locationData.dt | moment("DD/MM/YYYY H:MM") }}
+                  ({{ weather.description }})
+                </template>
+              </td>
+              <td v-if="filters.temperature.visibility">{{ locationData.main.temp }}</td>
+              <td v-if="filters.maxTemp.visibility">{{ locationData.main.temp_max }}</td>
+              <td v-if="filters.minTemp.visibility">{{ locationData.main.temp_min }}</td>
+              <td v-if="filters.pressure.visibility">{{ locationData.main.pressure }}</td>
+              <td v-if="filters.humidity.visibility">{{ locationData.main.humidity }}</td>
+              <td v-if="filters.visibility.visibility">{{ locationData.visibility }}</td>
+            </tr>
+          </template>
         </template>
       </table>
     </div>

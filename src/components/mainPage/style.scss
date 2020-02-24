@@ -1,7 +1,5 @@
-main {
+.main-page {
   padding: 40px 0;
-}
-section {
 }
 
 form {
@@ -46,5 +44,11 @@ button {
   &:hover {
     background: $gray;
     border-color: $gray;
+  }
+
+  &.disabled {
+    background: $gray-100;
+    border-color: $gray-100;
+    cursor: initial;
   }
 }

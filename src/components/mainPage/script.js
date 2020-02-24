@@ -1,6 +1,6 @@
-import axios from "axios";
-import cityInfo from "./cityInfo";
 import Vue from "vue";
+import { mapGetters, mapActions } from "vuex";
+import cityInfo from "./cityInfo";
 
 Vue.use(require("vue-moment"));
 
@@ -8,7 +8,6 @@ export default {
   data() {
     return {
       searchRequest: "",
-      searchData: {},
       showErrMessage: false
     };
   },
@@ -19,25 +18,18 @@ export default {
 
   mounted() {},
 
-  computed: {},
+  computed: {
+    ...mapGetters(["allWeatherMap", "currentWeatherMap", "searchStatus"])
+  },
 
   methods: {
-    getSearchData: function() {
+    getData() {
       if (this.searchRequest.length >= 2) {
-        axios({
-          url: `http://api.openweathermap.org/data/2.5/weather?q=${this.searchRequest}&appid=fd4fbed251513a7146e1342278f59ccc`,
-          method: "GET"
-        })
-          .then(({ data }) => {
-            this.searchData = data;
-            this.showErrMessage = false;
-          })
-          .catch(err => {
-            this.showErrMessage = true;
-            console.log(err);
-          });
+        this.getSearchData(this.searchRequest);
       }
-    }
+    },
+
+    ...mapActions(["getSearchData"])
   },
 
   components: {
